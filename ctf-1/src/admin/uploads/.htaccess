@@ -1,0 +1,24 @@
+# Show PHP files but prevent execution
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Allow from all
+    SetHandler default-handler
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Prevent access to .htaccess
+<Files .htaccess>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# Allow only specific file types
+<FilesMatch "\.(jpg|jpeg|png|gif|pdf|txt|doc|docx|xls|xlsx)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Set default handler
+DefaultType application/octet-stream 
