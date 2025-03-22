@@ -13,7 +13,7 @@ $message = '';
 $uploaded_file_path = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
-    $target_dir = "./uploads/";
+    $target_dir = "/var/www/html/admin/uploads/";
     
     // Create uploads directory if it doesn't exist
     if (!file_exists($target_dir)) {
