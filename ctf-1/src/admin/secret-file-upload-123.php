@@ -13,13 +13,12 @@ $message = '';
 $uploaded_file_path = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
-    $target_dir = "uploads/";
+    $target_dir = "./uploads/";
     
     // Create uploads directory if it doesn't exist
     if (!file_exists($target_dir)) {
         mkdir($target_dir, 0777, true);
     }
-    print_r($_FILES);
     // Vulnerable to LFI - no filtering of directory traversal characters
     $target_file = $target_dir . $_FILES["file"]["name"];
     // Move uploaded file
