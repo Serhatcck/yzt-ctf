@@ -17,6 +17,3 @@ RUN chown -R www-data:www-data /var/www/html && \
 
 # Enable Apache modules
 RUN a2enmod rewrite
-
-# Configure Apache
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf 
