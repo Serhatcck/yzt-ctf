@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "name": "string",
+      "lastName": "string",
+      "email": "test@test.com",
+      "password": "test",
+      "type": "hunter",
+      "id": "1748378122171",
+      "registeredAt": "2025-05-27T20:35:22.171Z"
+    },
+    {
+      "name": "test",
+      "lastName": "test",
+      "email": "test1@test.com",
+      "password": "test",
+      "type": "hunter",
+      "id": "1748379955060",
+      "registeredAt": "2025-05-27T21:05:55.060Z"
+    }
+  ]
+}

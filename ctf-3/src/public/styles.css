@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2C3E50;
+    font-size: 2.5em;
+    margin-bottom: 2rem;
+}
+
+.duck-container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.duck {
+    width: 150px;
+    height: 150px;
+    animation: bounce 2s infinite ease-in-out;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.duck-body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #FFD700;
+    border-radius: 50%;
+}
+
+.duck-head {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background: #FFD700;
+    border-radius: 50%;
+}
+
+.duck-eye {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 15px;
+    height: 15px;
+    background: black;
+    border-radius: 50%;
+}
+
+.duck-beak {
+    position: absolute;
+    top: 25px;
+    left: -15px;
+    width: 30px;
+    height: 15px;
+    background: #FF6B6B;
+    border-radius: 5px;
+}
+
+.duck-wing {
+    position: absolute;
+    top: 40px;
+    right: -15px;
+    width: 60px;
+    height: 30px;
+    background: #FFD700;
+    border-radius: 50%;
+    transform: rotate(-30deg);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.duck-select {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: 2px solid #E74C3C;
+    border-radius: 25px;
+    background: white;
+    color: #2C3E50;
+    cursor: pointer;
+    width: 250px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.duck-select:focus {
+    outline: none;
+    border-color: #C0392B;
+}
+
+.hunt-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background: #E74C3C;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.hunt-button:hover {
+    transform: scale(1.1);
+    background: #C0392B;
+}
+
+.result-container {
+    margin-top: 2rem;
+}
+
+.result-box {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    display: none;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+} 

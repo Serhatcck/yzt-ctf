@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dufy Duck Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dufy Duck Hunt</h1>
+        
+        <div class="duck-container">
+            <img src="DaffyDuck.svg" alt="Daffy Duck" class="duck" id="duck">
+        </div>
+
+        <div class="controls">
+            <select id="duckType" class="duck-select">
+                <option value="">Select a duck character...</option>
+                <option value="duffy">Duffy Duck</option>
+                <option value="donald">Donald Duck</option>
+                <option value="daffy">Daffy Duck</option>
+                <option value="scrooge">Scrooge McDuck</option>
+                <option value="darkwing">Darkwing Duck</option>
+                <option value="howard">Howard the Duck</option>
+            </select>
+            <button id="huntButton" class="hunt-button">Hunt Duck!</button>
+        </div>
+
+        <div class="result-container">
+            <div id="result" class="result-box"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
