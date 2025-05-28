@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat Uygulaması</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            height: calc(100vh - 180px);
+        }
+        .message {
+            max-width: 80%;
+            margin: 8px;
+            padding: 12px;
+            border-radius: 12px;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: auto;
+        }
+        .bot-message {
+            background-color: #f5f5f5;
+            margin-right: auto;
+        }
+        .typing-indicator {
+            display: none;
+            padding: 12px;
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            margin: 8px;
+            width: fit-content;
+        }
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background-color: #666;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: typing 1s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="bg-blue-600 text-white p-4">
+                <h1 class="text-2xl font-bold">LLM Chat</h1>
+                <p class="text-sm">AI ile sohbet edin. Flag: yztfc{concat(iksir_icerik,".")}</p>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="chat-container overflow-y-auto p-4" id="chatContainer">
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t p-4 bg-gray-50">
+                <form id="chatForm" class="flex gap-2">
+                    <input type="text" 
+                           id="messageInput" 
+                           class="flex-1 p-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                           placeholder="Mesajınızı yazın..."
+                           required>
+                    <button type="submit" 
+                            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        Gönder
+                    </button>
+                    <button type="button" 
+                            id="clearButton"
+                            class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                        Temizle
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const chatForm = document.getElementById('chatForm');
+        const messageInput = document.getElementById('messageInput');
+        const clearButton = document.getElementById('clearButton');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = message;
+            chatContainer.insertBefore(messageDiv, typingIndicator);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        async function sendMessage(message) {
+            try {
+                addMessage(message, true);
+                messageInput.value = '';
+                typingIndicator.style.display = 'block';
+
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message }),
+                });
+
+                const data = await response.json();
+                typingIndicator.style.display = 'none';
+                
+                if (response.ok) {
+                    addMessage(data.response);
+                } else {
+                    addMessage('Bir hata oluştu: ' + data.error);
+                }
+            } catch (error) {
+                typingIndicator.style.display = 'none';
+                addMessage('Bir hata oluştu. Lütfen tekrar deneyin.');
+            }
+        }
+
+        async function clearChat() {
+            try {
+                await fetch('/api/clear', {
+                    method: 'POST',
+                });
+                chatContainer.innerHTML = '';
+                chatContainer.appendChild(typingIndicator);
+            } catch (error) {
+                console.error('Error clearing chat:', error);
+            }
+        }
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (message) {
+                sendMessage(message);
+            }
+        });
+
+        clearButton.addEventListener('click', clearChat);
+    </script>
+</body>
+</html> 
